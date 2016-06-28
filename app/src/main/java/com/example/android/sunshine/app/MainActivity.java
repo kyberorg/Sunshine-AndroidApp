@@ -1,13 +1,14 @@
 package com.example.android.sunshine.app;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
+import android.view.*;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -57,6 +58,25 @@ public class MainActivity extends ActionBarActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+
+            List<String> forecasts = new ArrayList<>();
+            forecasts.add("Tana - Aurinko - 88/63");
+            forecasts.add("Homme - Vihma - 73/60");
+            forecasts.add("Neljapaev - Aurinko - 83/70");
+            forecasts.add("Reede - Aurinko - 88/77");
+            forecasts.add("Laupaev - Vihma - 72/61");
+
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                    //current context
+                    getActivity(),
+                    //ID of item layout and ID of textview
+                    R.layout.list_item_forecast, R.id.list_item_forecast_textview,
+                    //Data Set
+                    forecasts);
+
+            ListView forecasts_view = (ListView) rootView.findViewById(R.id.listview_forecast);
+            forecasts_view.setAdapter(arrayAdapter);
+
             return rootView;
         }
     }
