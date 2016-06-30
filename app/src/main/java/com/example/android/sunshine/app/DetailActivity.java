@@ -47,7 +47,7 @@ public class DetailActivity extends ActionBarActivity {
 
             String forecast = getActivity().getIntent().getStringExtra(Intent.EXTRA_TEXT);
 
-            TextView detailsText = (TextView) rootView.findViewById(R.id.detail_text_view);
+            TextView detailsText = (TextView) rootView.findViewById(R.id.detail_text);
             detailsText.setText(forecast);
             return rootView;
         }
