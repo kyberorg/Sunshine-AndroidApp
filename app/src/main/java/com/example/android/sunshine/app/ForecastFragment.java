@@ -1,5 +1,6 @@
 package com.example.android.sunshine.app;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.text.format.Time;
 import android.util.Log;
 import android.view.*;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import org.json.JSONArray;
@@ -44,7 +46,7 @@ public class ForecastFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        List<String> forecasts = new ArrayList<>();
+        final List<String> forecasts = new ArrayList<>();
         forecasts.add("Tana - Aurinko - 88/63");
         forecasts.add("Homme - Vihma - 73/60");
         forecasts.add("Neljapaev - Aurinko - 83/70");
@@ -59,8 +61,18 @@ public class ForecastFragment extends Fragment {
                 //Data Set
                 forecasts);
 
-        ListView forecasts_view = (ListView) rootView.findViewById(R.id.listview_forecast);
-        forecasts_view.setAdapter(forecastAdapter);
+        ListView forecastsView = (ListView) rootView.findViewById(R.id.listview_forecast);
+        forecastsView.setAdapter(forecastAdapter);
+        forecastsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                String forecast = forecastAdapter.getItem(position);
+                Intent detailsIntent = new Intent(getActivity(), DetailActivity.class)
+                        .putExtra(Intent.EXTRA_TEXT, forecast);
+                startActivity(detailsIntent);
+            }
+        });
 
         return rootView;
     }
