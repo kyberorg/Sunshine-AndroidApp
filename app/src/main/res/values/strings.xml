@@ -75,5 +75,6 @@
     <string name="pref_location_summary">City which we will display weather for</string>
 
     <string name="pref_location_default" translatable="false">Tallinn</string>
+    <string name="action_map">Map Location</string>
 
 </resources>
