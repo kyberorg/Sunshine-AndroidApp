@@ -12,6 +12,7 @@ import android.support.v4.content.Loader;
 import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import com.example.android.sunshine.app.data.WeatherContract;
 
 /**
@@ -151,5 +152,8 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     public void onLocationChange(){
         updateWeather();
         getLoaderManager().restartLoader(FORECAST_LOADER, null, this);
+        //Update location in main screen
+        TextView locationTitle = (TextView) getActivity().findViewById(R.id.location_title);
+        locationTitle.setText(Utility.getPreferredLocation(getActivity()));
     }
 }
