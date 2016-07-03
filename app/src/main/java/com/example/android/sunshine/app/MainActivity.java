@@ -13,15 +13,32 @@ public class MainActivity extends ActionBarActivity {
 
     private final static String TAG = MainActivity.class.getSimpleName();
 
+    private String location;
+    private String FORECAST_FRAGMENT_TAG = "ForecastFragment";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new ForecastFragment())
+                    .add(R.id.container, new ForecastFragment(), FORECAST_FRAGMENT_TAG)
                     .commit();
         }
+        location = Utility.getPreferredLocation(this);
+    }
+
+    @Override
+    protected void onResume() {
+        String currentLocation = Utility.getPreferredLocation(this);
+        if(currentLocation !=null && ! location.equals(currentLocation)){
+            ForecastFragment ff = (ForecastFragment) getSupportFragmentManager().findFragmentByTag(FORECAST_FRAGMENT_TAG);
+            if(ff!=null) {
+                ff.onLocationChange();
+            }
+            location = currentLocation;
+        }
+        super.onResume();
     }
 
     @Override
