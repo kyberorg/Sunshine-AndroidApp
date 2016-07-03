@@ -77,5 +77,6 @@
     <string name="pref_location_default" translatable="false">Tallinn</string>
     <string name="action_map">Map Location</string>
     <string name="action_share">Share</string>
+    <string name="main_location">Location</string>
 
 </resources>
