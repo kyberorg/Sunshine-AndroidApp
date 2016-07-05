@@ -13,27 +13,38 @@ import android.widget.TextView;
 public class MainActivity extends ActionBarActivity {
 
     private final static String TAG = MainActivity.class.getSimpleName();
+    private static final String DETAIL_FRAGMENT_TAG = "DetailFragment";
 
     private String location;
-    private String FORECAST_FRAGMENT_TAG = "ForecastFragment";
+    private boolean twoPane = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new ForecastFragment(), FORECAST_FRAGMENT_TAG)
-                    .commit();
-        }
         location = Utility.getPreferredLocation(this);
+
+        setContentView(R.layout.activity_main);
+        if(findViewById(R.id.weather_detail_container) != null) {
+            //Tablets mode
+            twoPane = true;
+
+            if(savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.weather_detail_container, new DetailFragment())
+                        .commit();
+            }
+        } else {
+            //Phone mode
+            twoPane = false;
+        }
     }
 
     @Override
     protected void onResume() {
         String currentLocation = Utility.getPreferredLocation(this);
         if(currentLocation !=null && ! location.equals(currentLocation)){
-            ForecastFragment ff = (ForecastFragment) getSupportFragmentManager().findFragmentByTag(FORECAST_FRAGMENT_TAG);
+            ForecastFragment ff = (ForecastFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_forecast);
             if(ff!=null) {
                 ff.onLocationChange();
             }

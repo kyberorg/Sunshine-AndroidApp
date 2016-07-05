@@ -6,8 +6,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import static com.example.android.sunshine.app.R.id.container;
-
 public class DetailActivity extends ActionBarActivity {
 
     @Override
@@ -16,7 +14,7 @@ public class DetailActivity extends ActionBarActivity {
         setContentView(R.layout.activity_detail);
         if(savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(container, new DetailFragment())
+                    .add(R.id.weather_detail_container, new DetailFragment())
                     .commit();
         }
     }
