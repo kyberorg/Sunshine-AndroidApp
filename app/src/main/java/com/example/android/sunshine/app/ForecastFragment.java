@@ -1,6 +1,5 @@
 package com.example.android.sunshine.app;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -54,6 +53,18 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 
     private ForecastAdapter forecastAdapter;
 
+    /**
+     * A callback interface that all activities containing this fragment must
+     * implement. This mechanism allows activities to be notified of item
+     * selections.
+     */
+    public interface Callback {
+        /**
+         * DetailFragmentCallback for when an item has been selected.
+         */
+        public void onItemSelected(Uri dateUri);
+    }
+
     public ForecastFragment() {
     }
 
@@ -81,12 +92,10 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
                 Cursor cursor = (Cursor) adapterView.getItemAtPosition(position);
                 if(cursor != null) {
                     String locationSetting = Utility.getPreferredLocation(getActivity());
-
-                    Intent intent = new Intent(getActivity(), DetailActivity.class)
-                            .setData(WeatherContract.WeatherEntry.buildWeatherLocationWithDate(
+                    ((Callback) getActivity())
+                            .onItemSelected(WeatherContract.WeatherEntry.buildWeatherLocationWithDate(
                                     locationSetting, cursor.getLong(COL_WEATHER_DATE)
                             ));
-                    startActivity(intent);
                 }
             }
         });
@@ -114,6 +123,14 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    void onLocationChange(){
+        updateWeather();
+        getLoaderManager().restartLoader(FORECAST_LOADER, null, this);
+        //Update location in main screen
+        TextView locationTitle = (TextView) getActivity().findViewById(R.id.location_title);
+        locationTitle.setText(Utility.getPreferredLocation(getActivity()));
     }
 
     private void updateWeather(){
@@ -149,11 +166,4 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         forecastAdapter.swapCursor(null);
     }
 
-    public void onLocationChange(){
-        updateWeather();
-        getLoaderManager().restartLoader(FORECAST_LOADER, null, this);
-        //Update location in main screen
-        TextView locationTitle = (TextView) getActivity().findViewById(R.id.location_title);
-        locationTitle.setText(Utility.getPreferredLocation(getActivity()));
-    }
 }

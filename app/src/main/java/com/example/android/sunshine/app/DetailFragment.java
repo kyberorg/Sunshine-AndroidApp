@@ -2,6 +2,7 @@ package com.example.android.sunshine.app;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import com.example.android.sunshine.app.data.WeatherContract;
 public class DetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = DetailFragment.class.getSimpleName();
+    public static final String DETAIL_URI = "URI";
 
     private static final String HASHTAG = " #WeatherApp";
     private static final int DETAIL_LOADER = 0;
@@ -46,6 +48,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     private static final int COL_WEATHER_DEGREES = 8;
     private static final int COL_WEATHER_CONDITION_ID = 9;
 
+
     private ImageView iconView;
     private TextView friendlyDateView;
     private TextView dateView;
@@ -58,6 +61,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     private String forecastString;
     private ShareActionProvider shareActionProvider;
+    private Uri uri;
 
     public DetailFragment() {
         setHasOptionsMenu(true);
@@ -65,6 +69,12 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        Bundle args = getArguments();
+        if(args != null) {
+            uri = args.getParcelable(DetailFragment.DETAIL_URI);
+        }
+
         View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
 
         iconView = (ImageView) rootView.findViewById(R.id.detail_icon);
@@ -110,25 +120,34 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        getLoaderManager().initLoader(DETAIL_LOADER, null, this);
         super.onActivityCreated(savedInstanceState);
+        getLoaderManager().initLoader(DETAIL_LOADER, null, this); //FIXME here Loader is NULL (reason is: see line 121)
+    }
+
+    void onLocationChanged(String newLocation) {
+        if(uri != null) {
+            long date = WeatherContract.WeatherEntry.getDateFromUri(uri);
+            Uri updatedUri = WeatherContract.WeatherEntry.buildWeatherLocationWithDate(newLocation, date);
+            uri = updatedUri;
+            getLoaderManager().restartLoader(DETAIL_LOADER, null, this);
+        }
     }
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Log.v(TAG, "In onCreateLoader");
-        Intent intent = getActivity().getIntent();
-        if(intent == null || intent.getData() == null) {
-            return null;
+
+        if(uri != null) {
+            return new CursorLoader(
+                    getActivity(),
+                    uri,
+                    DETAIL_COLUMNS,
+                    null,
+                    null,
+                    null
+            );
         }
-        return new CursorLoader(
-                getActivity(),
-                intent.getData(),
-                DETAIL_COLUMNS,
-                null,
-                null,
-                null
-        );
+        return null;
     }
 
     @Override

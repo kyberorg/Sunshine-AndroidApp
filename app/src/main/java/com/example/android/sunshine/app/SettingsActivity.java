@@ -1,6 +1,9 @@
 package com.example.android.sunshine.app;
 
 
+import android.annotation.TargetApi;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -55,5 +58,13 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
         return true;
     }
 
-
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public Intent getParentActivityIntent() {
+        Intent intent = super.getParentActivityIntent();
+        if(intent != null) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        }
+        return intent;
+    }
 }
