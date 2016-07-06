@@ -5,4 +5,8 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="ForecastListStyle">
+        <!-- Empty stub for phones -->
+    </style>
+
 </resources>
