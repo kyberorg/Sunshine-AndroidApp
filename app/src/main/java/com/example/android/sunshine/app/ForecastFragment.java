@@ -53,6 +53,10 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 
     private ForecastAdapter forecastAdapter;
 
+    private static final String SELECTED_POSITION_KEY = "selectedPositionKey";
+    private int mPosition = ListView.INVALID_POSITION;
+    private boolean useTodayLayout;
+
     /**
      * A callback interface that all activities containing this fragment must
      * implement. This mechanism allows activities to be notified of item
@@ -97,8 +101,16 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
                                     locationSetting, cursor.getLong(COL_WEATHER_DATE)
                             ));
                 }
+                mPosition = position;
             }
         });
+
+        //Restoring item position, if it was stored in Bundle
+        if(savedInstanceState != null && savedInstanceState.containsKey(SELECTED_POSITION_KEY)) {
+            mPosition = savedInstanceState.getInt(SELECTED_POSITION_KEY);
+        }
+
+        forecastAdapter.setUseTodayLayout(useTodayLayout);
 
         return rootView;
     }
@@ -140,6 +152,15 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        //Saving selected item position for restoring it when device rotated or similar stuff
+        if(mPosition != ListView.INVALID_POSITION) {
+            outState.putInt(SELECTED_POSITION_KEY, mPosition);
+        }
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         String locationSetting = Utility.getPreferredLocation(getActivity());
 
@@ -164,6 +185,13 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         forecastAdapter.swapCursor(null);
+    }
+
+    public void setUseTodayLayout(boolean useTodayLayout) {
+        this.useTodayLayout = useTodayLayout;
+        if(forecastAdapter != null) {
+            forecastAdapter.setUseTodayLayout(useTodayLayout);
+        }
     }
 
 }
