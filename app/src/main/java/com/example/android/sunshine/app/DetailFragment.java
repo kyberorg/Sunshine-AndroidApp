@@ -169,6 +169,9 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         String weatherDesc = data.getString(COL_WEATHER_DESC);
         descriptionView.setText(weatherDesc);
 
+        //For accessibility, we adding description to icon field
+        iconView.setContentDescription(weatherDesc);
+
         double highTemp = data.getDouble(COL_WEATHER_MAX_TEMP);
         String highTempString = Utility.formatTemperature(getActivity(), highTemp);
         highTempView.setText(highTempString);

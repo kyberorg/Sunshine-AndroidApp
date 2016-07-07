@@ -105,6 +105,9 @@ public class ForecastAdapter extends CursorAdapter {
 
         viewHolder.descriptionView.setText(description);
 
+        //For accessibility we add description to icon field
+        viewHolder.iconView.setContentDescription(description);
+
         double high = cursor.getDouble(ForecastFragment.COL_WEATHER_MAX_TEMP);
 
         viewHolder.highTempView.setText(Utility.formatTemperature(context, high));
