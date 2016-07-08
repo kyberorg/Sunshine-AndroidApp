@@ -112,4 +112,6 @@
     <string name="stub_wind">6 km/h NW</string>
     <string name="stub_pressure">1014 hPa</string>
 
+    <string name="access_text_location_icon">Weather Location</string>
+
 </resources>
