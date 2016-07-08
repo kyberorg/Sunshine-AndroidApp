@@ -28,7 +28,7 @@
             android:padding="@dimen/list_item_right_margin"
             android:fontFamily="sans-serif-medium"
             android:textStyle="bold"
-            android:textSize="41sp"
+            android:textSize="@dimen/location_text_size"
             android:text="@string/main_location"
              />
 
