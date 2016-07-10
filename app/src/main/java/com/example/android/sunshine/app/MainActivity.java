@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -116,21 +115,14 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
         return super.onOptionsItemSelected(item);
     }
 
-    private void openPreferredLocationInMap() {
+    public void openPreferredLocationInMap() {
         String location = Utility.getPreferredLocation(this);
+        Utility.openLocationInMap(location, this);
+    }
 
-        Uri geoLocation = Uri.parse("geo:0,0?").buildUpon()
-                .appendQueryParameter("q", location)
-                .build();
-
-        Intent geoIntent = new Intent(Intent.ACTION_VIEW);
-        geoIntent.setData(geoLocation);
-        if(geoIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(geoIntent);
-        } else {
-            Log.d(TAG, "Unable to call " + location + ", no map app installed here");
-        }
-
+    public void openLocationActivity() {
+        Intent intent = new Intent(this, LocationActivity.class);
+        startActivity(intent);
     }
 
     @Nullable

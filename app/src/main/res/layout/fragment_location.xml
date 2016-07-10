@@ -1,0 +1,65 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/location_fragment_horizontal_padding"
+    android:paddingRight="@dimen/location_fragment_horizontal_padding"
+    android:paddingTop="@dimen/location_fragment_vertical_padding"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:textSize="@dimen/location_fragment_text_size"
+        android:text="@string/location_selected_update_text"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <EditText
+            android:id="@+id/location_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="@dimen/location_fragment_city_text_size"
+            />
+
+        <Button
+            android:id="@+id/location_update_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ok"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/fragment_location_recents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:textSize="@dimen/location_fragment_text_size"
+            android:text="@string/location_or_from_recent"
+            />
+
+        <ListView
+            android:id="@+id/recent_locations_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/ForecastListStyle"
+            >
+        </ListView>
+    </LinearLayout>
+</LinearLayout>

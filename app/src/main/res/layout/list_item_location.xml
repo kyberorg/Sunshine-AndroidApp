@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_item_location"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:descendantFocusability="blocksDescendants"
+    android:weightSum="1"
+    >
+
+    <TextView
+        android:id="@+id/location_item_city"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="sans-serif-condensed"
+        android:textSize="@dimen/location_fragment_city_text_size"
+        android:text="@string/stub_location"
+        />
+
+    <ImageButton
+        android:id="@+id/location_item_map_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:src="@drawable/maps_icon"
+        />
+
+</LinearLayout>

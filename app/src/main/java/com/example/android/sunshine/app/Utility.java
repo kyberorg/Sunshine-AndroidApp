@@ -16,10 +16,15 @@
 package com.example.android.sunshine.app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NavUtils;
 import android.text.format.Time;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -35,6 +40,52 @@ public class Utility {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getString(context.getString(R.string.pref_location_key),
                 context.getString(R.string.pref_location_default));
+    }
+
+    public static void setPreferredLocation(String newLocation, Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(context.getString(R.string.pref_location_key), newLocation);
+        editor.apply();
+    }
+
+    public static void updateWeather(Context context) {
+        FetchWeatherTask weatherTask = new FetchWeatherTask(context);
+        String location = getPreferredLocation(context);
+        weatherTask.execute(location);
+    }
+
+    public static void openLocationInMap(String location, Context context) {
+
+        Uri geoLocation = Uri.parse("geo:0,0?").buildUpon()
+                .appendQueryParameter("q", location)
+                .build();
+
+        Intent geoIntent = new Intent(Intent.ACTION_VIEW);
+        geoIntent.setData(geoLocation);
+        if(geoIntent.resolveActivity(context.getPackageManager()) != null) {
+            context.startActivity(geoIntent);
+        } else {
+            String message = "Unable to show " + location + " on map. No map application installed on device";
+            Log.d(TAG, message);
+            //Also good idea to show toast for user
+            Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+
+        }
+    }
+
+    public static Intent getParentActivityIntent(Context context, Class<?> sourceActivityClass){
+        Intent intent = null;
+        try {
+            intent = NavUtils.getParentActivityIntent(context, sourceActivityClass);
+        } catch(PackageManager.NameNotFoundException e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
+        
+        if(intent != null) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        }
+        return intent;
     }
 
     /**

@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
@@ -14,9 +15,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.example.android.sunshine.app.data.WeatherContract;
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class ForecastFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
     public static final int FORECAST_LOADER = 0;
@@ -112,6 +110,14 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 
         forecastAdapter.setUseTodayLayout(useTodayLayout);
 
+        //on click on location
+        View locationView = rootView.findViewById(R.id.location_title);
+        locationView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLocationDialog();
+            }
+        });
         return rootView;
     }
 
@@ -130,7 +136,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if(id == R.id.action_refresh) {
-            updateWeather();
+            Utility.updateWeather(getActivity());
             return true;
         }
 
@@ -138,17 +144,11 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     void onLocationChange(){
-        updateWeather();
+        Utility.updateWeather(getActivity());
         getLoaderManager().restartLoader(FORECAST_LOADER, null, this);
         //Update location in main screen
         TextView locationTitle = (TextView) getActivity().findViewById(R.id.location_title);
         locationTitle.setText(Utility.getPreferredLocation(getActivity()));
-    }
-
-    private void updateWeather(){
-        FetchWeatherTask weatherTask = new FetchWeatherTask(getActivity());
-        String location = Utility.getPreferredLocation(getActivity());
-        weatherTask.execute(location);
     }
 
     @Override
@@ -192,6 +192,12 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         if(forecastAdapter != null) {
             forecastAdapter.setUseTodayLayout(useTodayLayout);
         }
+    }
+
+    private void showLocationDialog() {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        LocationDialogFragment dialogFragment = new LocationDialogFragment();
+        dialogFragment.show(fragmentManager, "LocationDialogFragment");
     }
 
 }
