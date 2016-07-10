@@ -18,10 +18,8 @@ package com.example.android.sunshine.app;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.support.v4.app.NavUtils;
 import android.text.format.Time;
 import android.util.Log;
 import android.widget.Toast;
@@ -72,20 +70,6 @@ public class Utility {
             Toast.makeText(context, message, Toast.LENGTH_LONG).show();
 
         }
-    }
-
-    public static Intent getParentActivityIntent(Context context, Class<?> sourceActivityClass){
-        Intent intent = null;
-        try {
-            intent = NavUtils.getParentActivityIntent(context, sourceActivityClass);
-        } catch(PackageManager.NameNotFoundException e) {
-            Log.e(TAG, e.getMessage(), e);
-        }
-        
-        if(intent != null) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        }
-        return intent;
     }
 
     /**
