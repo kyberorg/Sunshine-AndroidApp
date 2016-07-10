@@ -1,6 +1,5 @@
 package com.example.android.sunshine.app;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,7 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import com.example.android.sunshine.app.data.WeatherContract;
 
 
@@ -89,9 +91,7 @@ public class LocationFragment extends Fragment implements LoaderManager.LoaderCa
     }
 
     private void finishIt() {
-        Intent homeIntent = new Intent(getActivity(), MainActivity.class);
-        startActivity(homeIntent);
-        getActivity().finish();
+        getActivity().onBackPressed();
     }
 
     @Override
