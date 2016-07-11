@@ -123,5 +123,10 @@
     <string name="ok">OK</string>
     <string name="stub_location">Planet Earth</string>
 
+    <!-- Sync Adapter stuff -->
+    <string name="sync_account_type">sunshine.example.com</string>
+    <!-- This should be the same as ContentProvider Uri -->
+    <string name="content_authority">com.example.android.sunshine.app</string>
+    <string name="sync_account_name">Sunshine Weather Sync</string>
 
 </resources>

@@ -16,8 +16,6 @@
 package com.example.android.sunshine.app;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -26,7 +24,7 @@ import android.preference.PreferenceManager;
 import android.text.format.Time;
 import android.util.Log;
 import android.widget.Toast;
-import com.example.android.sunshine.app.service.SunshineService;
+import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -52,18 +50,7 @@ public class Utility {
     }
 
     public static void updateWeather(Activity activity) {
-        String location = getPreferredLocation(activity);
-
-        Intent alarmIntent = new Intent(activity, SunshineService.AlarmReceiver.class);
-        alarmIntent.putExtra(SunshineService.LOCATION_QUERY_EXTRA, location);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(activity, 0, alarmIntent, PendingIntent.FLAG_ONE_SHOT);
-        AlarmManager alarmManager = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 5000, pendingIntent);
-
-        Intent serviceIntent = new Intent(activity, SunshineService.class);
-        serviceIntent.putExtra(SunshineService.LOCATION_QUERY_EXTRA, location);
-        activity.startService(serviceIntent);
+        SunshineSyncAdapter.syncRightNow(activity);
     }
 
     public static void openLocationInMap(String location, Context context) {
