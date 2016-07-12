@@ -254,6 +254,12 @@ public class ForecastWeatherUpdater extends WeatherUpdater {
                 ContentValues[] cvArray = new ContentValues[cVVector.size()];
                 cVVector.toArray(cvArray);
                 inserted = this.context.getContentResolver().bulkInsert(WeatherContract.WeatherEntry.CONTENT_URI, cvArray);
+
+                //Deleting old data
+                this.context.getContentResolver().delete(WeatherContract.WeatherEntry.CONTENT_URI,
+                        WeatherContract.WeatherEntry.COLUMN_DATE + " <= ?",
+                        new String[]{Long.toString(dayTime.setJulianDay(julianStartDay - 1))}
+                );
             }
             String completedMessage = String.format("Weather update is complete. %d inserted", cVVector.size());
             Log.d(TAG, completedMessage);
