@@ -49,6 +49,14 @@ public class Utility {
         editor.apply();
     }
 
+    public static boolean areNotificationsEnabled(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getBoolean(
+                context.getString(R.string.pref_enable_notifications_key),
+                Boolean.parseBoolean(context.getString(R.string.pref_enable_notifications_default))
+        );
+    }
+
     public static void updateWeather(Activity activity) {
         SunshineSyncAdapter.syncRightNow(activity);
     }
