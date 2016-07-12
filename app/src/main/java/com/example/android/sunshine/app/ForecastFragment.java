@@ -148,12 +148,6 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if(id == R.id.action_refresh) {
-            Utility.updateWeather(getActivity());
-            return true;
-        }
-
         return super.onOptionsItemSelected(item);
     }
 
