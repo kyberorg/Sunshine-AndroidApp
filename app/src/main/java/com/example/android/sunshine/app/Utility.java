@@ -278,7 +278,7 @@ public class Utility {
      *
      * @return formatted temperature string
      */
-    static String formatTemperature(Context context, double temperature) {
+    public static String formatTemperature(Context context, double temperature) {
         return context.getString(R.string.formatted_temperature, temperature);
     }
 

@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import com.example.android.sunshine.app.R;
+import com.example.android.sunshine.app.notification.ForecastNotifer;
 import com.example.android.sunshine.app.update.ForecastWeatherUpdater;
 import com.example.android.sunshine.app.update.WeatherUpdater;
 
@@ -27,6 +28,8 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
         Log.d(TAG, "Starting weather sync");
         WeatherUpdater forecastUpdater = new ForecastWeatherUpdater();
         forecastUpdater.performUpdate(getContext());
+
+        ForecastNotifer.notifyWeather(getContext());
     }
 
     /**
