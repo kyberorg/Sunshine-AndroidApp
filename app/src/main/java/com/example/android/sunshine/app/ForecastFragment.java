@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import com.example.android.sunshine.app.data.WeatherContract;
 
 public class ForecastFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+    private static final String TAG = ForecastFragment.class.getSimpleName();
 
     public static final int FORECAST_LOADER = 0;
 
@@ -50,6 +53,7 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     static final int COL_COORD_LONG = 8;
 
     private ForecastAdapter forecastAdapter;
+    private SwipeRefreshLayout refreshLayout;
 
     private static final String SELECTED_POSITION_KEY = "selectedPositionKey";
     private int mPosition = ListView.INVALID_POSITION;
@@ -116,6 +120,16 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
             @Override
             public void onClick(View v) {
                 showLocationDialog();
+            }
+        });
+
+        //on swipe to refresh
+        refreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_for_refresh);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.d(TAG, "Refreshing weather by user request");
+                performWeatherUpdate();
             }
         });
         return rootView;
@@ -198,6 +212,11 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         LocationDialogFragment dialogFragment = new LocationDialogFragment();
         dialogFragment.show(fragmentManager, "LocationDialogFragment");
+    }
+
+    private void performWeatherUpdate(){
+        Utility.updateWeather(getActivity());
+        refreshLayout.setRefreshing(false);
     }
 
 }

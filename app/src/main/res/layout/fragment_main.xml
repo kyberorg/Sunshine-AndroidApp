@@ -44,13 +44,20 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         tools:context=".MainActivity$ForecastFragment">
 
-        <ListView
-            style="@style/ForecastListStyle"
-            android:id="@+id/listview_forecast"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_for_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </ListView>
+            <ListView
+                style="@style/ForecastListStyle"
+                android:id="@+id/listview_forecast"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </ListView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
 
     </FrameLayout>
 
