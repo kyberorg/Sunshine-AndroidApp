@@ -9,6 +9,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import com.example.android.sunshine.app.settings.TimePreference;
 
 public class SettingsActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener {
     @Override
@@ -20,6 +21,8 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
         // For all preferences, attach an OnPreferenceChangeListener so the UI summary can be
         // updated when the preference changes.
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_location_key)));
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_time_morning_notification_key)));
+        bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_time_evening_notification_key)));
     }
 
     /**
@@ -51,6 +54,10 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
             if(prefIndex >= 0) {
                 preference.setSummary(listPreference.getEntries()[prefIndex]);
             }
+        } else if(preference instanceof TimePreference) {
+            //For our time preference we are adding leading zeros
+            TimePreference pref = (TimePreference) preference;
+            preference.setSummary(pref.valueToString(value));
         } else {
             // For other preferences, set the summary to the value's simple string representation.
             preference.setSummary(stringValue);

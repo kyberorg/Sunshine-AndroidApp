@@ -141,4 +141,34 @@
     <string name="pref_enable_notifications_true">Enabled</string>
     <string name="pref_enable_notifications_false">Not Enabled</string>
     <string name="pref_enable_notifications_default" translatable="false">true</string>
+    <string name="pref_notifications_subscreen_key" translatable="false">notification_subscreen_key</string>
+    <string name="pref_notifications_subscreen_label">Notifications</string>
+    <string name="pref_notifications_subscreen_summary">Configure Notifications</string>
+
+    <string name="pref_morning_notification_group_label">Morning</string>
+    <string name="pref_morning_notification_group_key" translatable="false">morning_key</string>
+    <string name="pref_enable_morning_notification_label">Notification at morning</string>
+    <string name="pref_enable_morning_notification_key" translatable="false">enable_morning</string>
+    <string name="pref_enable_morning_notification_false">Not Enabled</string>
+    <string name="pref_enable_morning_notification_true">Enabled</string>
+    <string name="pref_enable_morning_notification_default" translatable="false">false</string>
+    <string name="pref_time_morning_notification_label">Time</string>
+    <string name="pref_time_morning_notification_key" translatable="false">morning_time</string>
+    <string name="pref_time_morning_notification_default" translatable="false">09:00</string>
+
+    <string name="pref_evening_notification_group_label">Evening</string>
+    <string name="pref_evening_notification_group_key" translatable="false">evening_key</string>
+    <string name="pref_enable_evening_notification_label">Notification at Evening</string>
+    <string name="pref_enable_evening_notification_key" translatable="false">enable_evening</string>
+    <string name="pref_enable_evening_notification_false">Not Enabled</string>
+    <string name="pref_enable_evening_notification_true">Enabled</string>
+    <string name="pref_enable_evening_notification_default" translatable="false">false</string>
+    <string name="pref_time_evening_notification_label">Time</string>
+    <string name="pref_time_evening_notification_key" translatable="false">evening_time</string>
+    <string name="pref_time_evening_notification_default" translatable="false">18:00</string>
+
+    <!-- TimePicker dialog for settings -->
+    <string name="time_picker_dialog_set_button_text">Set</string>
+    <string name="time_picker_dialog_cancel_button_text">Cancel</string>
+
 </resources>
