@@ -17,7 +17,7 @@ public class SunshineApp extends Application {
     }
 
     private void setDailyNotification() {
-        boolean areDailyNotificationsEnabled = Utility.areNotificationsEnabled(getApplicationContext());
+        boolean areDailyNotificationsEnabled = SettingsUtility.areDailyNotificationsEnabled(getApplicationContext());
         if(areDailyNotificationsEnabled) {
             //morning notification
             boolean isMorningNotificationEnabled = SettingsUtility.isMorningNotificationEnabled(getApplicationContext());

@@ -7,8 +7,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import com.example.android.sunshine.app.R;
-import com.example.android.sunshine.app.Utility;
-import com.example.android.sunshine.app.notification.ForecastNotifer;
+import com.example.android.sunshine.app.notification.ForecastNotifier;
+import com.example.android.sunshine.app.settings.SettingsUtility;
 import com.example.android.sunshine.app.update.ForecastWeatherUpdater;
 import com.example.android.sunshine.app.update.WeatherUpdater;
 
@@ -30,8 +30,9 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
         WeatherUpdater forecastUpdater = new ForecastWeatherUpdater();
         forecastUpdater.performUpdate(getContext());
 
-        if(Utility.areNotificationsEnabled(getContext())) {
-            ForecastNotifer.notifyWeather(getContext());
+        if(SettingsUtility.areOnUpdateNotificationEnabled(getContext())) {
+            long interval = SettingsUtility.getOnUpdateNotificationInterval(getContext());
+            ForecastNotifier.notifyWithInterval(getContext(), interval);
         }
     }
 

@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import com.example.android.sunshine.app.Utility;
 import com.example.android.sunshine.app.settings.SettingsUtility;
 
 /**
@@ -19,7 +18,7 @@ public class NBC {
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "Received morning notification");
 
-            boolean areDailyNotificationsEnabled = Utility.areNotificationsEnabled(context);
+            boolean areDailyNotificationsEnabled = SettingsUtility.areDailyNotificationsEnabled(context);
             boolean isMorningNotificationsEnabled = SettingsUtility.isMorningNotificationEnabled(context);
 
             if(areDailyNotificationsEnabled && isMorningNotificationsEnabled) {
@@ -35,7 +34,7 @@ public class NBC {
         public void onReceive(Context context, Intent intent) {
             Log.d(TAG, "Received evening notification");
 
-            boolean areDailyNotificationsEnabled = Utility.areNotificationsEnabled(context);
+            boolean areDailyNotificationsEnabled = SettingsUtility.areDailyNotificationsEnabled(context);
             boolean isEveningNotificationsEnabled = SettingsUtility.isEveningNotificationEnabled(context);
 
             if(areDailyNotificationsEnabled && isEveningNotificationsEnabled) {

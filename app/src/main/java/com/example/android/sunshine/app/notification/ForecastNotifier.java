@@ -30,17 +30,15 @@ public class ForecastNotifier {
     private static final int INDEX_MIN_TEMP = 2;
     private static final int INDEX_SHORT_DESC = 3;
 
-    private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     private static final int WEATHER_NOTIFICATION_ID = 3004;
 
-    @Deprecated
-    public static void notifyWeather(Context context) {
+    public static void notifyWithInterval(Context context, long interval) {
         //checking the last update and notify if it' the first of the day
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         String lastNotificationKey = context.getString(R.string.pref_last_notification);
         long lastSync = prefs.getLong(lastNotificationKey, 0);
 
-        if(System.currentTimeMillis() - lastSync >= DAY_IN_MILLIS) {
+        if(System.currentTimeMillis() - lastSync >= interval) {
             // Last sync was more than 1 day ago, let's send a notification with the weather.
             notify(context);
 
