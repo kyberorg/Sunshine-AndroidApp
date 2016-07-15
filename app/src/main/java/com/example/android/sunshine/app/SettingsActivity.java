@@ -101,6 +101,11 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
 
         CheckBoxPreference pref = (CheckBoxPreference) preference;
 
+        //if daily notifications enabled/disabled
+        if(preference.getKey().equals(getString(R.string.pref_enable_daily_notifications_key))) {
+            onDailyNotificationChange(pref.isChecked());
+        }
+
         //if morning notification enabled/disabled
         if(preference.getKey().equals(this.getString(R.string.pref_enable_morning_notification_key))) {
             onMorningNotificationChanged(pref.isChecked());
@@ -158,10 +163,13 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
 
     private void onMorningNotificationChanged(boolean value) {
 
+        Preference morningTime = findPreference(getString(R.string.pref_time_morning_notification_key));
+
         boolean disabled = !value;
         if(disabled) {
             Log.d(TAG, "Morning notifications are disabled");
             Cron.removeAlarm(getApplicationContext(), NotificationType.MORNING);
+            morningTime.setEnabled(false);
         } else {
             Log.d(TAG, "Morning notifications are enabled");
 
@@ -173,16 +181,20 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
                     .time(getHour(notificationTime), getMinute(notificationTime))
                     .create()
             );
+            morningTime.setEnabled(true);
         }
 
     }
 
     private void onEveningNotificationChanged(boolean value) {
 
+        Preference eveningTime = findPreference(getString(R.string.pref_time_evening_notification_key));
+
         boolean disabled = !value;
         if(disabled) {
             Log.d(TAG, "Evening notifications are disabled");
             Cron.removeAlarm(getApplicationContext(), NotificationType.EVENING);
+            eveningTime.setEnabled(false);
         } else {
             Log.d(TAG, "Evening notifications are enabled");
 
@@ -194,8 +206,33 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
                     .time(getHour(notificationTime), getMinute(notificationTime))
                     .create()
             );
+            eveningTime.setEnabled(true);
         }
+    }
 
+    private void onDailyNotificationChange(boolean enabled) {
+        CheckBoxPreference morningEnabled = (CheckBoxPreference) findPreference(getString(R.string.pref_enable_morning_notification_key));
+        CheckBoxPreference eveningEnabled = (CheckBoxPreference) findPreference(getString(R.string.pref_enable_evening_notification_key));
+
+        if(enabled) {
+            morningEnabled.setEnabled(true);
+            eveningEnabled.setEnabled(true);
+
+            morningEnabled.setChecked(true);
+            eveningEnabled.setChecked(true);
+
+            onMorningNotificationChanged(true);
+            onEveningNotificationChanged(true);
+        } else {
+            morningEnabled.setEnabled(false);
+            eveningEnabled.setEnabled(false);
+
+            morningEnabled.setChecked(false);
+            eveningEnabled.setChecked(false);
+
+            onMorningNotificationChanged(false);
+            onEveningNotificationChanged(false);
+        }
     }
 
 }
