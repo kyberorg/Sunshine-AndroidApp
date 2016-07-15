@@ -1,4 +1,4 @@
-package com.example.android.sunshine.app;
+package com.example.android.sunshine.app.settings;
 
 
 import android.annotation.TargetApi;
@@ -7,10 +7,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.*;
 import android.util.Log;
+import com.example.android.sunshine.app.R;
 import com.example.android.sunshine.app.cron.Cron;
 import com.example.android.sunshine.app.notification.NotificationType;
-import com.example.android.sunshine.app.settings.SettingsUtility;
-import com.example.android.sunshine.app.settings.TimePreference;
 
 import static com.example.android.sunshine.app.settings.TimePreference.getHour;
 import static com.example.android.sunshine.app.settings.TimePreference.getMinute;

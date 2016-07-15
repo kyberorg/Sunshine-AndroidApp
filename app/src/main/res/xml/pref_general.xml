@@ -21,7 +21,7 @@
                 android:title="@string/pref_enable_on_update_notifications_label"
                 android:key="@string/pref_enable_on_update_notifications_key"
                 android:summaryOff="@string/pref_enable_on_update_notifications_false"
-                android:summaryOn="@string/pref_enable_on_update_notifications_true"
+                android:summaryOn="@string/enabled"
                 android:defaultValue="@string/pref_enable_on_update_notifications_default"
                 />
             <!-- TODO Interval Preference -->
@@ -37,8 +37,8 @@
                 <CheckBoxPreference
                     android:title="@string/pref_enable_daily_notifications_label"
                     android:key="@string/pref_enable_daily_notifications_key"
-                    android:summaryOff="@string/pref_enable_daily_notifications_false"
-                    android:summaryOn="@string/pref_enable_daily_notifications_true"
+                    android:summaryOff="@string/disabled"
+                    android:summaryOn="@string/enabled"
                     android:defaultValue="@string/pref_enable_daily_notifications_default" />
 
                 <PreferenceCategory
@@ -48,8 +48,8 @@
                     <CheckBoxPreference
                         android:title="@string/pref_enable_morning_notification_label"
                         android:key="@string/pref_enable_morning_notification_key"
-                        android:summaryOff="@string/pref_enable_morning_notification_false"
-                        android:summary="@string/pref_enable_morning_notification_true"
+                        android:summaryOff="@string/disabled"
+                        android:summary="@string/enabled"
                         android:defaultValue="@string/pref_enable_morning_notification_default" />
 
                     <com.example.android.sunshine.app.settings.TimePreference
@@ -66,8 +66,8 @@
                     <CheckBoxPreference
                         android:title="@string/pref_enable_evening_notification_label"
                         android:key="@string/pref_enable_evening_notification_key"
-                        android:summaryOff="@string/pref_enable_evening_notification_false"
-                        android:summary="@string/pref_enable_evening_notification_true"
+                        android:summaryOff="@string/disabled"
+                        android:summary="@string/enabled"
                         android:defaultValue="@string/pref_enable_evening_notification_default" />
 
                     <com.example.android.sunshine.app.settings.TimePreference
@@ -76,10 +76,7 @@
                         android:defaultValue="@string/pref_time_evening_notification_default" />
 
                 </PreferenceCategory>
-
             </PreferenceScreen>
         </PreferenceCategory>
-
-
     </PreferenceScreen>
 </PreferenceScreen>

@@ -137,6 +137,10 @@
     <string name="pref_last_notification">last_notification</string>
 
     <!-- Strings related to Notifications -->
+
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+
     <string name="pref_notifications_subscreen_key" translatable="false">notification_subscreen_key</string>
     <string name="pref_notifications_subscreen_label">Notifications</string>
     <string name="pref_notifications_subscreen_summary">Configure Notifications</string>
@@ -147,7 +151,6 @@
     <string name="pref_enable_on_update_notifications_label">Notifications on weather update </string>
     <string name="pref_enable_on_update_notifications_key" translatable="false">enable_on_update</string>
     <string name="pref_enable_on_update_notifications_false">Receive notification each time when weather is updated</string>
-    <string name="pref_enable_on_update_notifications_true">Enabled</string>
     <string name="pref_enable_on_update_notifications_default" translatable="false">false</string>
 
     <string name="pref_daily_notifications_group_label">Daily Notifications</string>
@@ -159,16 +162,12 @@
 
     <string name="pref_enable_daily_notifications_key" translatable="false">enable_daily_notifications</string>
     <string name="pref_enable_daily_notifications_label">Daily Forecast Notifications</string>
-    <string name="pref_enable_daily_notifications_true">Enabled</string>
-    <string name="pref_enable_daily_notifications_false">Not Enabled</string>
     <string name="pref_enable_daily_notifications_default" translatable="false">false</string>
 
     <string name="pref_morning_notification_group_label">Morning</string>
     <string name="pref_morning_notification_group_key" translatable="false">morning_key</string>
     <string name="pref_enable_morning_notification_label">Notification at morning</string>
     <string name="pref_enable_morning_notification_key" translatable="false">enable_morning</string>
-    <string name="pref_enable_morning_notification_false">Not Enabled</string>
-    <string name="pref_enable_morning_notification_true">Enabled</string>
     <string name="pref_enable_morning_notification_default" translatable="false">false</string>
     <string name="pref_time_morning_notification_label">Time</string>
     <string name="pref_time_morning_notification_key" translatable="false">morning_time</string>
@@ -176,10 +175,8 @@
 
     <string name="pref_evening_notification_group_label">Evening</string>
     <string name="pref_evening_notification_group_key" translatable="false">evening_key</string>
-    <string name="pref_enable_evening_notification_label">Notification at Evening</string>
+    <string name="pref_enable_evening_notification_label">Notification at evening'nj</string>
     <string name="pref_enable_evening_notification_key" translatable="false">enable_evening</string>
-    <string name="pref_enable_evening_notification_false">Not Enabled</string>
-    <string name="pref_enable_evening_notification_true">Enabled</string>
     <string name="pref_enable_evening_notification_default" translatable="false">false</string>
     <string name="pref_time_evening_notification_label">Time</string>
     <string name="pref_time_evening_notification_key" translatable="false">evening_time</string>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.example.android.sunshine.app.settings.SettingsActivity;
 
 public class DetailActivity extends ActionBarActivity {
 
