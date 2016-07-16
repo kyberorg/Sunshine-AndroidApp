@@ -175,7 +175,7 @@
 
     <string name="pref_evening_notification_group_label">Evening</string>
     <string name="pref_evening_notification_group_key" translatable="false">evening_key</string>
-    <string name="pref_enable_evening_notification_label">Notification at evening'nj</string>
+    <string name="pref_enable_evening_notification_label">Notification at evening</string>
     <string name="pref_enable_evening_notification_key" translatable="false">enable_evening</string>
     <string name="pref_enable_evening_notification_default" translatable="false">false</string>
     <string name="pref_time_evening_notification_label">Time</string>
