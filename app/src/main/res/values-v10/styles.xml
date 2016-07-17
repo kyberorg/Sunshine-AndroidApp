@@ -1,0 +1,12 @@
+<resources>
+    <!-- Settings activity theme. -->
+    <style name="SettingsTheme" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="actionBarStyle">@style/ActionBar.V10.Sunshine.NoTitle</item>
+    </style>
+
+    <!-- Settings activity action bar styles -->
+    <style name="ActionBar.V10.Sunshine.NoTitle" parent="@style/Widget.AppCompat.ActionBar.Solid">
+        <item name="android:background">@color/sunshine_blue</item>
+        <item name="android:height">56dp</item>
+    </style>
+</resources>
