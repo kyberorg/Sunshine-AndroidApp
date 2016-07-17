@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 import com.example.android.sunshine.app.notification.NotificationType;
+import com.example.android.sunshine.app.settings.TimePreference;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -141,7 +142,9 @@ public class Cron {
             public Params create() {
                 final int MIN_HOUR = 0;
                 final int MAX_HOUR = 24;
-                if(params.hour < MIN_HOUR || params.hour > MAX_HOUR) {
+                if(params.hour == TimePreference.WRONG_NUMBER) {
+                    params.errors.add("Alarm time not set");
+                } else if(params.hour < MIN_HOUR || params.hour > MAX_HOUR) {
                     @SuppressLint("DefaultLocale") //This message will be in logs only
                             String message = String.format("Hour value should be within range %d to %d", MIN_HOUR, MAX_HOUR);
                     params.errors.add(message);
@@ -149,7 +152,9 @@ public class Cron {
 
                 final int MIN_MINUTE = 0;
                 final int MAX_MINUTE = 59;
-                if(params.min < MIN_MINUTE || params.min > MAX_MINUTE) {
+                if(params.min == TimePreference.WRONG_NUMBER) {
+                    params.errors.add("Alarm time not set");
+                } else if(params.min < MIN_MINUTE || params.min > MAX_MINUTE) {
                     @SuppressLint("DefaultLocale") //This message will be in logs only
                             String message = String.format("Minutes value should be within range %d to %d", MIN_MINUTE, MAX_MINUTE);
                     params.errors.add(message);
