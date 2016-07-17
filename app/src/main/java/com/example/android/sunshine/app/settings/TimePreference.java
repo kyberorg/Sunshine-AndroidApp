@@ -12,6 +12,8 @@ import com.example.android.sunshine.app.R;
 
 public class TimePreference extends DialogPreference {
     private static final String TAG = TimePreference.class.getSimpleName();
+
+    public static final int WRONG_NUMBER = -1;
     private int lastHour = 0;
     private int lastMinute = 0;
     private TimePicker picker = null;
@@ -27,24 +29,32 @@ public class TimePreference extends DialogPreference {
     }
 
     public static int getHour(String time) {
+        if(time == null || time.trim().isEmpty()) {
+            return WRONG_NUMBER;
+        }
         String[] pieces = time.split(":");
-        int hour = 0;
+        int hour;
         try {
             hour = Integer.parseInt(pieces[0]);
         } catch(Exception e) {
             Log.e(TAG, e.getMessage(), e);
+            return WRONG_NUMBER;
         }
 
         return hour;
     }
 
     public static int getMinute(String time) {
+        if(time == null || time.trim().isEmpty()) {
+            return WRONG_NUMBER;
+        }
         String[] pieces = time.split(":");
-        int minutes = 0;
+        int minutes;
         try {
             minutes = Integer.parseInt(pieces[1]);
         } catch(Exception e) {
             Log.e(TAG, e.getMessage(), e);
+            return WRONG_NUMBER;
         }
         return minutes;
     }

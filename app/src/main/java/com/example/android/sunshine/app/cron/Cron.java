@@ -75,9 +75,15 @@ public class Cron {
     }
 
     private static void logErrors(Params params) {
-        StringBuilder errorCollector = new StringBuilder("Not setting alarm. Errors found: ");
+        StringBuilder errorCollector = new StringBuilder();
+        errorCollector.append("Not settings ");
+
+        String alarmType = params.type != null ? params.type.name() : "NO NAME ALARM";
+        errorCollector.append(alarmType).append(" alarm. ");
+
+        errorCollector.append("Errors found: ");
         for(String error : params.getErrors()) {
-            errorCollector.append(error).append(" ");
+            errorCollector.append(error).append("; ");
         }
         errorCollector.trimToSize();
         Log.e(TAG, errorCollector.toString());
@@ -135,17 +141,17 @@ public class Cron {
             public Params create() {
                 final int MIN_HOUR = 0;
                 final int MAX_HOUR = 24;
-                if(params.hour < MIN_HOUR && params.hour > MAX_HOUR) {
+                if(params.hour < MIN_HOUR || params.hour > MAX_HOUR) {
                     @SuppressLint("DefaultLocale") //This message will be in logs only
-                            String message = String.format("Hour value should  be within range %d to %d", MIN_HOUR, MAX_HOUR);
+                            String message = String.format("Hour value should be within range %d to %d", MIN_HOUR, MAX_HOUR);
                     params.errors.add(message);
                 }
 
                 final int MIN_MINUTE = 0;
                 final int MAX_MINUTE = 59;
-                if(params.min < MIN_MINUTE && params.min > MAX_MINUTE) {
+                if(params.min < MIN_MINUTE || params.min > MAX_MINUTE) {
                     @SuppressLint("DefaultLocale") //This message will be in logs only
-                            String message = String.format("Minutes value should  be within range %d to %d", MIN_MINUTE, MAX_MINUTE);
+                            String message = String.format("Minutes value should be within range %d to %d", MIN_MINUTE, MAX_MINUTE);
                     params.errors.add(message);
                 }
 
