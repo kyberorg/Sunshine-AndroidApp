@@ -33,6 +33,12 @@ public class SettingsActivity extends PreferenceActivity implements Preference.O
         setOnClickListenerFor(findPreference(getString(R.string.pref_enable_daily_notifications_key)));
         setOnClickListenerFor(findPreference(getString(R.string.pref_enable_morning_notification_key)));
         setOnClickListenerFor(findPreference(getString(R.string.pref_enable_evening_notification_key)));
+
+        //If value if default, we need init it properly, if disabled - disable
+        onPreferenceClick(findPreference(getString(R.string.pref_enable_daily_notifications_key)));
+        onPreferenceClick(findPreference(getString(R.string.pref_enable_morning_notification_key)));
+        onPreferenceClick(findPreference(getString(R.string.pref_enable_evening_notification_key)));
+
     }
 
     /**
