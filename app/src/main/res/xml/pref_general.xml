@@ -25,6 +25,10 @@
                 android:defaultValue="@string/pref_enable_on_update_notifications_default"
                 />
             <!-- TODO Interval Preference -->
+            <com.example.android.sunshine.app.settings.IntervalPreference
+                android:title="Gimme a number"
+                android:key="DEF"
+                android:defaultValue="0" />
         </PreferenceCategory>
         <PreferenceCategory
             android:title="@string/pref_daily_notifications_group_label"
