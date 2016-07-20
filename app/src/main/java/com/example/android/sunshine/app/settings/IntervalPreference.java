@@ -9,15 +9,14 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.NumberPicker;
 import com.example.android.sunshine.app.R;
+import net.virtalab.android.pickers.NumberPicker;
 
 
 public class IntervalPreference extends DialogPreference {
     private static final String TAG = IntervalPreference.class.getSimpleName();
 
     private NumberPicker picker;
-    private IntervalPicker picker1;
 
     public IntervalPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -35,14 +34,12 @@ public class IntervalPreference extends DialogPreference {
 
         params.gravity = Gravity.CENTER;
 
+
         picker = new NumberPicker(getContext());
         picker.setLayoutParams(params);
 
-        picker1 = new IntervalPicker(getContext());
-        picker1.setLayoutParams(params);
-
         FrameLayout dialogView = new FrameLayout(getContext());
-        dialogView.addView(picker1);
+        dialogView.addView(picker);
 
         return dialogView;
     }
@@ -51,8 +48,10 @@ public class IntervalPreference extends DialogPreference {
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
         //TODO setting current values
-        //picker.setMaxValue(12);
-        //picker.setMinValue(0);
+        picker.setMaxValue(12);
+        picker.setMinValue(0);
+        picker.setFocusable(true);
+        picker.setFocusableInTouchMode(true);
     }
 
     @Override
