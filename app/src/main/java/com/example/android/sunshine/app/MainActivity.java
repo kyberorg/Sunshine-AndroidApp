@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import com.example.android.sunshine.app.data.WeatherContract;
+import com.example.android.sunshine.app.settings.SettingsActivity;
 import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
 
 

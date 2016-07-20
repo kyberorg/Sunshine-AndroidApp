@@ -8,10 +8,75 @@
         android:inputType="text"
         android:singleLine="true" />
 
-    <CheckBoxPreference
-        android:title="@string/pref_enable_notifications_label"
-        android:key="@string/pref_enable_notifications_key"
-        android:summaryOff="@string/pref_enable_notifications_false"
-        android:summaryOn="@string/pref_enable_notifications_true"
-        android:defaultValue="@string/pref_enable_notifications_default" />
+    <PreferenceScreen
+        android:title="@string/pref_notifications_subscreen_label"
+        android:key="@string/pref_notifications_subscreen_key"
+        android:summary="@string/pref_notifications_subscreen_summary"
+        >
+
+        <PreferenceCategory
+            android:title="@string/pref_on_update_notifications_group_label"
+            android:key="@string/pref_on_update_notifications_group_key">
+            <CheckBoxPreference
+                android:title="@string/pref_enable_on_update_notifications_label"
+                android:key="@string/pref_enable_on_update_notifications_key"
+                android:summaryOff="@string/pref_enable_on_update_notifications_false"
+                android:summaryOn="@string/enabled"
+                android:defaultValue="@string/pref_enable_on_update_notifications_default"
+                />
+            <!-- TODO Interval Preference -->
+        </PreferenceCategory>
+        <PreferenceCategory
+            android:title="@string/pref_daily_notifications_group_label"
+            android:key="@string/pref_daily_notifications_group_key">
+            <PreferenceScreen
+                android:title="@string/pref_daily_notifications_subsubscreen_label"
+                android:key="@string/pref_daily_notifications_subsubscreen_key"
+                android:summary="@string/pref_daily_notifications_subsubscreen_summary">
+
+                <CheckBoxPreference
+                    android:title="@string/pref_enable_daily_notifications_label"
+                    android:key="@string/pref_enable_daily_notifications_key"
+                    android:summaryOff="@string/disabled"
+                    android:summaryOn="@string/enabled"
+                    android:defaultValue="@string/pref_enable_daily_notifications_default" />
+
+                <PreferenceCategory
+                    android:title="@string/pref_morning_notification_group_label"
+                    android:key="@string/pref_morning_notification_group_key">
+
+                    <CheckBoxPreference
+                        android:title="@string/pref_enable_morning_notification_label"
+                        android:key="@string/pref_enable_morning_notification_key"
+                        android:summaryOff="@string/disabled"
+                        android:summary="@string/enabled"
+                        android:defaultValue="@string/pref_enable_morning_notification_default" />
+
+                    <com.example.android.sunshine.app.settings.TimePreference
+                        android:title="@string/pref_time_morning_notification_label"
+                        android:key="@string/pref_time_morning_notification_key"
+                        android:defaultValue="@string/pref_time_morning_notification_default" />
+
+                </PreferenceCategory>
+
+                <PreferenceCategory
+                    android:title="@string/pref_evening_notification_group_label"
+                    android:key="@string/pref_evening_notification_group_key">
+
+                    <CheckBoxPreference
+                        android:title="@string/pref_enable_evening_notification_label"
+                        android:key="@string/pref_enable_evening_notification_key"
+                        android:summaryOff="@string/disabled"
+                        android:summary="@string/enabled"
+                        android:defaultValue="@string/pref_enable_evening_notification_default" />
+
+                    <com.example.android.sunshine.app.settings.TimePreference
+                        android:title="@string/pref_time_evening_notification_label"
+                        android:key="@string/pref_time_evening_notification_key"
+                        android:defaultValue="@string/pref_time_evening_notification_default" />
+
+                </PreferenceCategory>
+            </PreferenceScreen>
+        </PreferenceCategory>
+    </PreferenceScreen>
 </PreferenceScreen>
