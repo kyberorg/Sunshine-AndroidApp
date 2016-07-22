@@ -4,12 +4,27 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import com.example.android.sunshine.app.Utility;
 import com.example.android.sunshine.app.settings.SettingsUtility;
 
 /**
  * NBC - stands for Notification Broadcasts Class
  */
 public class NBC {
+    private static final String TAG = NBC.class.getSimpleName();
+
+    /**
+     * Weather update waiting time in seconds
+     */
+    private static int JITTER = 30;
+
+    private static void waitForWeatherUpdateSomeTime() {
+        try {
+            Thread.sleep(JITTER * 1000);
+        } catch(InterruptedException e) {
+            Log.e(TAG, e.getMessage(), e);
+        }
+    }
 
     public static class MorningNotificationReceiver extends BroadcastReceiver {
         private static final String TAG = MorningNotificationReceiver.class.getSimpleName();
@@ -22,6 +37,8 @@ public class NBC {
             boolean isMorningNotificationsEnabled = SettingsUtility.isMorningNotificationEnabled(context);
 
             if(areDailyNotificationsEnabled && isMorningNotificationsEnabled) {
+                Utility.updateWeather(context);
+                NBC.waitForWeatherUpdateSomeTime();
                 ForecastNotifier.notify(context);
             }
         }
@@ -38,6 +55,9 @@ public class NBC {
             boolean isEveningNotificationsEnabled = SettingsUtility.isEveningNotificationEnabled(context);
 
             if(areDailyNotificationsEnabled && isEveningNotificationsEnabled) {
+                Utility.updateWeather(context);
+                NBC.waitForWeatherUpdateSomeTime();
+                Log.d(TAG, "Do notify");
                 ForecastNotifier.notify(context);
             }
         }
