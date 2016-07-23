@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
@@ -49,7 +50,7 @@ public class ForecastNotifier {
         }
     }
 
-    public static void notify(Context context) {
+    static void notify(Context context) {
         String locationQuery = Utility.getPreferredLocation(context);
 
         Uri weatherUri = WeatherContract.WeatherEntry.buildWeatherLocationWithDate(locationQuery, System.currentTimeMillis());
@@ -64,20 +65,34 @@ public class ForecastNotifier {
             double low = cursor.getDouble(INDEX_MIN_TEMP);
             String desc = cursor.getString(INDEX_SHORT_DESC);
 
+            String location = Utility.getPreferredLocation(context);
+
             int iconId = Utility.getIconResourceForWeatherCondition(weatherId);
             String title = context.getString(R.string.app_name_for_notification);
 
             // Define the text of the forecast.
             String contentText = String.format(context.getString(R.string.format_notification),
+                    location,
                     desc,
                     Utility.formatTemperature(context, high),
                     Utility.formatTemperature(context, low));
 
+            //Multi-line text
+            NotificationCompat.InboxStyle multiLine = new NotificationCompat.InboxStyle();
+            multiLine.addLine(location);
+            multiLine.addLine(contentText);
+
+
             //build your notification here.
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                     .setSmallIcon(iconId)
-                    .setContentTitle(title)
-                    .setContentText(contentText);
+                    .setContentTitle(title);
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                builder.setStyle(multiLine);
+            } else {
+                builder.setContentText(contentText);
+            }
 
             Intent resultIntent = new Intent(context, MainActivity.class);
             TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
