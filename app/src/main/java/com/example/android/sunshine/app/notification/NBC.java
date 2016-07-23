@@ -11,18 +11,19 @@ import com.example.android.sunshine.app.settings.SettingsUtility;
  * NBC - stands for Notification Broadcasts Class
  */
 public class NBC {
-    private static final String TAG = NBC.class.getSimpleName();
 
-    /**
-     * Weather update waiting time in seconds
-     */
-    private static int JITTER = 30;
+    public static class MorningPreNotificationReceiver extends BroadcastReceiver {
+        private static final String TAG = MorningPreNotificationReceiver.class.getSimpleName();
 
-    private static void waitForWeatherUpdateSomeTime() {
-        try {
-            Thread.sleep(JITTER * 1000);
-        } catch(InterruptedException e) {
-            Log.e(TAG, e.getMessage(), e);
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d(TAG, "Initiating weather update before morning notification");
+            boolean areDailyNotificationsEnabled = SettingsUtility.areDailyNotificationsEnabled(context);
+            boolean isMorningNotificationsEnabled = SettingsUtility.isMorningNotificationEnabled(context);
+
+            if(areDailyNotificationsEnabled && isMorningNotificationsEnabled) {
+                Utility.updateWeather(context);
+            }
         }
     }
 
@@ -37,9 +38,23 @@ public class NBC {
             boolean isMorningNotificationsEnabled = SettingsUtility.isMorningNotificationEnabled(context);
 
             if(areDailyNotificationsEnabled && isMorningNotificationsEnabled) {
-                Utility.updateWeather(context);
-                NBC.waitForWeatherUpdateSomeTime();
                 ForecastNotifier.notify(context);
+            }
+        }
+    }
+
+    public static class EveningPreNotificationReceiver extends BroadcastReceiver {
+        private static final String TAG = EveningPreNotificationReceiver.class.getSimpleName();
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.d(TAG, "Initiating weather update before evening notification");
+
+            boolean areDailyNotificationsEnabled = SettingsUtility.areDailyNotificationsEnabled(context);
+            boolean isEveningNotificationsEnabled = SettingsUtility.isEveningNotificationEnabled(context);
+
+            if(areDailyNotificationsEnabled && isEveningNotificationsEnabled) {
+                Utility.updateWeather(context);
             }
         }
     }
@@ -55,9 +70,6 @@ public class NBC {
             boolean isEveningNotificationsEnabled = SettingsUtility.isEveningNotificationEnabled(context);
 
             if(areDailyNotificationsEnabled && isEveningNotificationsEnabled) {
-                Utility.updateWeather(context);
-                NBC.waitForWeatherUpdateSomeTime();
-                Log.d(TAG, "Do notify");
                 ForecastNotifier.notify(context);
             }
         }

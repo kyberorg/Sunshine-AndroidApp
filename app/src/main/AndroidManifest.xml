@@ -91,7 +91,13 @@
         </service>
 
         <receiver
+            android:name=".notification.NBC$MorningPreNotificationReceiver"
+            android:enabled="true" />
+        <receiver
             android:name=".notification.NBC$MorningNotificationReceiver"
+            android:enabled="true" />
+        <receiver
+            android:name=".notification.NBC$EveningPreNotificationReceiver"
             android:enabled="true" />
         <receiver
             android:name=".notification.NBC$EveningNotificationReceiver"

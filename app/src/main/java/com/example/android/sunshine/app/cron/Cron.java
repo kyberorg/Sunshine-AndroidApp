@@ -20,6 +20,10 @@ public class Cron {
     private static final String TAG = Cron.class.getSimpleName();
 
     private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
+    /**
+     * Gap between weather update and notification alarms in millis
+     */
+    private static final long GAP = 5 * 60 * 1000;
 
     public static void addAlarm(Params params) {
 
@@ -32,52 +36,69 @@ public class Cron {
 
         long currentTime = System.currentTimeMillis();
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(currentTime);
-        calendar.set(Calendar.HOUR_OF_DAY, params.hour);
-        calendar.set(Calendar.MINUTE, params.min);
-        calendar.set(Calendar.SECOND, 0);
+        Calendar notificationTime = Calendar.getInstance();
+        notificationTime.setTimeInMillis(currentTime);
+        notificationTime.set(Calendar.HOUR_OF_DAY, params.hour);
+        notificationTime.set(Calendar.MINUTE, params.min);
+        notificationTime.set(Calendar.SECOND, 0);
 
-        if(currentTime > calendar.getTimeInMillis()) {
+        if(currentTime > notificationTime.getTimeInMillis()) {
             //current time already after alarm time => setting alarm for tomorrow
-            calendar.setTimeInMillis(currentTime + Cron.DAY_IN_MILLIS);
-            calendar.set(Calendar.HOUR_OF_DAY, params.hour);
-            calendar.set(Calendar.MINUTE, params.min);
-            calendar.set(Calendar.SECOND, 0);
+            notificationTime.setTimeInMillis(currentTime + Cron.DAY_IN_MILLIS);
+            notificationTime.set(Calendar.HOUR_OF_DAY, params.hour);
+            notificationTime.set(Calendar.MINUTE, params.min);
+            notificationTime.set(Calendar.SECOND, 0);
         }
 
-        Intent intent = new Intent(params.context, params.type.getReceiverClass());
+        Calendar weatherUpdateTime = Calendar.getInstance();
+        long weatherUpdateTimeInMillis = Math.max(notificationTime.getTimeInMillis() - GAP, currentTime);
+        weatherUpdateTime.setTimeInMillis(weatherUpdateTimeInMillis);
 
-        PendingIntent pi = PendingIntent.getBroadcast(params.context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        //Weather update
+        Intent weatherUpdateIntent = new Intent(params.context, params.type.getUpdateReceiverClass());
+        setAlarm(weatherUpdateIntent, weatherUpdateTime.getTimeInMillis(), params.context);
 
-        AlarmManager alarmManager = (AlarmManager) params.context.getSystemService(Context.ALARM_SERVICE);
-
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            alarmManager.setExact(
-                    AlarmManager.RTC_WAKEUP,
-                    calendar.getTimeInMillis(),
-                    pi
-            );
-        } else {
-            alarmManager.setInexactRepeating(
-                    AlarmManager.RTC_WAKEUP,
-                    calendar.getTimeInMillis(),
-                    AlarmManager.INTERVAL_DAY,
-                    pi
-            );
-        }
+        //Notification
+        Intent notificationIntent = new Intent(params.context, params.type.getNotificationReceiverClass());
+        setAlarm(notificationIntent, notificationTime.getTimeInMillis(), params.context);
     }
 
     public static void removeAlarm(Context context, NotificationType type) {
-        Intent intent = new Intent(context, type.getReceiverClass());
-        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        //weather update alarm
+        Intent updateIntent = new Intent(context, type.getNotificationReceiverClass());
+        PendingIntent updatePI = PendingIntent.getBroadcast(context, 0, updateIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        am.cancel(updatePI);
+
+        //notification alarm
+        Intent notificationIntent = new Intent(context, type.getNotificationReceiverClass());
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
         am.cancel(pi);
+    }
+
+    private static void setAlarm(Intent intent, long time, Context context) {
+        PendingIntent pi = PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            alarmManager.setExact(
+                    AlarmManager.RTC_WAKEUP,
+                    time,
+                    pi
+            );
+        } else {
+            alarmManager.set(
+                    AlarmManager.RTC_WAKEUP,
+                    time,
+                    pi
+            );
+        }
     }
 
     private static void logErrors(Params params) {
         StringBuilder errorCollector = new StringBuilder();
-        errorCollector.append("Not settings ");
+        errorCollector.append("Not setting ");
 
         String alarmType = params.type != null ? params.type.name() : "NO NAME ALARM";
         errorCollector.append(alarmType).append(" alarm. ");
@@ -96,7 +117,7 @@ public class Cron {
         Context context;
         NotificationType type;
 
-        List<String> errors = new ArrayList<>();
+        final List<String> errors = new ArrayList<>();
 
         public static Params.Builder createParams() {
 
@@ -119,9 +140,10 @@ public class Cron {
             return errors;
         }
 
+        @SuppressWarnings("WeakerAccess") //because weaker access cause compile error
         public static class Builder {
 
-            private Params params = new Params();
+            private final Params params = new Params();
 
             public Params.Builder context(Context context) {
                 params.context = context;
