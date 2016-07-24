@@ -1,0 +1,7 @@
+<resources>
+    <dimen name="list_item_date_text_size">28sp</dimen>
+    <dimen name="list_item_forecast_text_size">22sp</dimen>
+
+    <dimen name="list_item_high_text_size">28sp</dimen>
+    <dimen name="list_item_low_text_size">22sp</dimen>
+</resources>

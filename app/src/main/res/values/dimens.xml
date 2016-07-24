@@ -20,4 +20,10 @@
 
     <dimen name="location_fragment_text_size">13sp</dimen>
     <dimen name="location_fragment_city_text_size">20sp</dimen>
+
+    <dimen name="list_item_date_text_size">22sp</dimen>
+    <dimen name="list_item_forecast_text_size">14sp</dimen>
+
+    <dimen name="list_item_high_text_size">22sp</dimen>
+    <dimen name="list_item_low_text_size">14sp</dimen>
 </resources>
