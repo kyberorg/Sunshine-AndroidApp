@@ -99,7 +99,7 @@ public class ForecastAdapter extends CursorAdapter {
 
         long dateInMillis = cursor.getLong(ForecastFragment.COL_WEATHER_DATE);
 
-        viewHolder.dateView.setText(Utility.getFriendlyDayString(context, dateInMillis));
+        viewHolder.dateView.setText(Utility.getFriendlyDayString(context, dateInMillis, useTodayLayout));
 
         String description = cursor.getString(ForecastFragment.COL_WEATHER_DESC);
 
