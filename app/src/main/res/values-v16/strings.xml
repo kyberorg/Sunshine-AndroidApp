@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="http://schemas.android.com/tools">
+    <string name="format_notification">Forecast: <xliff:g id="condition">%2$s</xliff:g>. High: <xliff:g id="high">%3$s</xliff:g> Low: <xliff:g id="low">%4$s</xliff:g></string>
+</resources>

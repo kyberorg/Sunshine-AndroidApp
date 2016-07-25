@@ -53,6 +53,10 @@ public class Utility {
         SunshineSyncAdapter.syncRightNow(activity);
     }
 
+    public static void updateWeather(Context context) {
+        SunshineSyncAdapter.syncRightNow(context);
+    }
+
     public static void openLocationInMap(String location, Context context) {
 
         Uri geoLocation = Uri.parse("geo:0,0?").buildUpon()
