@@ -1,7 +1,7 @@
 <resources>
 
     <dimen name="main_high_temp_text_size">52sp</dimen>
-    <dimen name="detail_high_temp_text_size">55sp</dimen>
+    <dimen name="detail_high_temp_text_size">53sp</dimen>
 
     <dimen name="main_low_temp_text_size">33sp</dimen>
     <dimen name="detail_low_temp_text_size">35sp</dimen>
