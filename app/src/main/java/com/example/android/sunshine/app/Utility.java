@@ -82,7 +82,6 @@ public class Utility {
      *
      * @param context      Context to use for resource localization
      * @param dateInMillis The date in milliseconds
-     * @param useTodayLayout     Indicates if we display forecast for today as separate view or like others
      *
      * @return a user-friendly representation of the date.
      */
