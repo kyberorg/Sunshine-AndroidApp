@@ -4,9 +4,11 @@
     <dimen name="activity_vertical_margin">2dp</dimen>
     <dimen name="main_activity_horizontal_margin">5dp</dimen>
 
-    <dimen name="location_text_size">21sp</dimen>
+    <dimen name="location_text_size">31sp</dimen>
 
-    <dimen name="main_high_temp_text_size">34sp</dimen>
+    <dimen name="main_today_text_size">27sp</dimen>
+
+    <dimen name="main_high_temp_text_size">42sp</dimen>
     <dimen name="detail_high_temp_text_size">50sp</dimen>
 
     <dimen name="main_low_temp_text_size">26sp</dimen>
@@ -14,8 +16,6 @@
 
     <dimen name="detail_fragment_padding">16dp</dimen>
     <dimen name="low_temp_padding">27dp</dimen>
-
-    <dimen name="main_today_text_size">25sp</dimen>
 
     <dimen name="location_fragment_horizontal_padding">34dp</dimen>
     <dimen name="location_fragment_vertical_padding">17dp</dimen>
