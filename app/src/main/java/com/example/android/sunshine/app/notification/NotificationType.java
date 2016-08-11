@@ -5,16 +5,23 @@ import android.content.BroadcastReceiver;
 
 public enum NotificationType {
 
-    MORNING(NBC.MorningNotificationReceiver.class),
-    EVENING(NBC.EveningNotificationReceiver.class);
+    MORNING(NBC.MorningNotificationReceiver.class, NBC.MorningPreNotificationReceiver.class),
+    EVENING(NBC.EveningNotificationReceiver.class, NBC.EveningPreNotificationReceiver.class);
 
-    private Class<? extends BroadcastReceiver> receiverClazz;
+    private final Class<? extends BroadcastReceiver> notificationReceiverClazz;
+    private final Class<? extends BroadcastReceiver> updateReceiverClazz;
 
-    NotificationType(Class<? extends BroadcastReceiver> receiverClass) {
-        this.receiverClazz = receiverClass;
+    NotificationType(Class<? extends BroadcastReceiver> notificationReceiverClass,
+                     Class<? extends BroadcastReceiver> updateReceiverClass) {
+        this.notificationReceiverClazz = notificationReceiverClass;
+        this.updateReceiverClazz = updateReceiverClass;
     }
 
-    public Class<? extends BroadcastReceiver> getReceiverClass() {
-        return this.receiverClazz;
+    public Class<? extends BroadcastReceiver> getNotificationReceiverClass() {
+        return this.notificationReceiverClazz;
+    }
+
+    public Class<? extends BroadcastReceiver> getUpdateReceiverClass() {
+        return this.updateReceiverClazz;
     }
 }
