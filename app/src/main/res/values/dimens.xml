@@ -6,7 +6,7 @@
 
     <dimen name="location_text_size">21sp</dimen>
 
-    <dimen name="main_high_temp_text_size">44sp</dimen>
+    <dimen name="main_high_temp_text_size">34sp</dimen>
     <dimen name="detail_high_temp_text_size">50sp</dimen>
 
     <dimen name="main_low_temp_text_size">26sp</dimen>

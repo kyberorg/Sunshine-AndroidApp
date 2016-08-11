@@ -1,11 +1,11 @@
 <resources>
     <dimen name="location_text_size">41sp</dimen>
 
-    <dimen name="main_high_temp_text_size">64sp</dimen>
-    <dimen name="detail_high_temp_text_size">72sp</dimen>
+    <dimen name="main_high_temp_text_size">52sp</dimen>
+    <dimen name="detail_high_temp_text_size">55sp</dimen>
 
-    <dimen name="main_low_temp_text_size">36sp</dimen>
-    <dimen name="detail_low_temp_text_size">42sp</dimen>
+    <dimen name="main_low_temp_text_size">33sp</dimen>
+    <dimen name="detail_low_temp_text_size">35sp</dimen>
 
     <dimen name="location_fragment_text_size">22sp</dimen>
     <dimen name="location_fragment_city_text_size">30sp</dimen>
