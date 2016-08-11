@@ -15,6 +15,8 @@
     <dimen name="detail_fragment_padding">16dp</dimen>
     <dimen name="low_temp_padding">27dp</dimen>
 
+    <dimen name="main_today_text_size">25sp</dimen>
+
     <dimen name="location_fragment_horizontal_padding">34dp</dimen>
     <dimen name="location_fragment_vertical_padding">17dp</dimen>
 
@@ -26,4 +28,5 @@
 
     <dimen name="list_item_high_text_size">22sp</dimen>
     <dimen name="list_item_low_text_size">14sp</dimen>
+
 </resources>
